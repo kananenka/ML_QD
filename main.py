@@ -18,7 +18,7 @@ import util
 data_dir = "/work/akanane/users/ML_QD/data/"
 cur_dir  = os.getcwd()
 files      = range(0,4367) 
-n_files_to_run = 1000
+n_files_to_run = 2000
 ntimes     = 10000
 tmax       = 1.000
 dt         = 0.0001
@@ -89,10 +89,10 @@ result = model.fit(x_train, y_train,
 
 ##############################################################################
 # Plot statistics here
-acc      = history.history['mean_squared_error']
-val_acc  = history.history['val_mean_squared_error']
-loss     = history.history['loss']
-val_loss = history.history['val_loss']
+acc      = result.history['mean_squared_error']
+val_acc  = result.history['val_mean_squared_error']
+loss     = result.history['loss']
+val_loss = result.history['val_loss']
 
 nps = range(1, len(acc)+1)
 
