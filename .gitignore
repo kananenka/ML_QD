@@ -1,6 +1,7 @@
 *.sbatch
 *.out
 *.dat
+*.err
 
 #
 __pycache__/
