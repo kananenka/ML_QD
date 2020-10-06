@@ -13,16 +13,12 @@ import os
 import util
 
 
-# this is a comment
-
-
-
 ########################################################################
 
 data_dir = "/work/akanane/users/ML_QD/data/"
 cur_dir  = os.getcwd()
 files      = range(0,4367) 
-n_files_to_run = 4000
+n_files_to_run = 1000
 ntimes     = 10000
 tmax       = 1.000
 dt         = 0.0001
@@ -37,7 +33,7 @@ test_size  = 0.1
 validation_size = 0.2
 
 batch_size = 32
-epoch      = 10
+epoch      = 2
 lr         = 0.0001
    
 print (" memory = %d \n"%(memory),flush=True)
@@ -91,8 +87,29 @@ result = model.fit(x_train, y_train,
                        #callbacks=callbacks,
                        validation_split=validation_size)
 
- 
+##############################################################################
+# Plot statistics here
+acc      = history.history['mean_squared_error']
+val_acc  = history.history['val_mean_squared_error']
+loss     = history.history['loss']
+val_loss = history.history['val_loss']
 
+nps = range(1, len(acc)+1)
+
+f,((ax1),(ax2)) = plt.subplots(2,1)
+plt.subplots_adjust(hspace=0.15,wspace=0)
+
+ax1.plot(nps, acc, 'bo', label='Training acc')
+ax1.plot(nps, val_acc, 'b', label='Validation acc')
+ax1.legend()
+
+ax2.plot(nps, loss, 'bo', label="Training loss")
+ax2.plot(nps, val_loss, 'b', label='Validation loss')
+ax2.title('Training and validation loss')
+ax2.legend()
+
+fname = cur_dir + "/stat.pdf"
+f.savefig(fname,dpi=1200,bbox_inches='tight')
 
 ################################################################################3
    

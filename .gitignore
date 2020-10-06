@@ -1,0 +1,7 @@
+*.sbatch
+*.out
+*.dat
+
+#
+__pycache__/
+
