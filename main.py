@@ -9,6 +9,7 @@ from keras.layers.normalization import BatchNormalization
 from keras import optimizers
 from keras.initializers import glorot_uniform
 from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
 import os
 import util
 
@@ -105,7 +106,6 @@ ax1.legend()
 
 ax2.plot(nps, loss, 'bo', label="Training loss")
 ax2.plot(nps, val_loss, 'b', label='Validation loss')
-ax2.title('Training and validation loss')
 ax2.legend()
 
 fname = cur_dir + "/stat.pdf"
