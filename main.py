@@ -19,7 +19,7 @@ import util
 data_dir = "/work/akanane/users/ML_QD/data/"
 cur_dir  = os.getcwd()
 files      = range(0,4367) 
-n_files_to_run = 2000
+n_files_to_run = 4000
 ntimes     = 10000
 tmax       = 1.000
 dt         = 0.0001
@@ -33,9 +33,9 @@ memory     = 200
 test_size  = 0.1
 validation_size = 0.2
 
-batch_size = 32
-epoch      = 2
-lr         = 0.0001
+batch_size = 512
+epoch      = 30
+lr         = 0.0000005
    
 print (" memory = %d \n"%(memory),flush=True)
 print (" batch_size = %d \n"%(batch_size),flush=True)
@@ -57,22 +57,17 @@ x_train, x_test, y_train, y_test, idx1, idx2 = split
 
 
 
-
 ##########################################################################
 
 
 
 model = Sequential()
-model.add(Conv3D(filters=2, kernel_size=(16,1,1), activation='relu', input_shape=(memory,2,2,1), data_format='channels_last'))
-model.add(Conv3D(filters=15, kernel_size=(48,1,1), activation='relu', data_format='channels_last'))
-model.add(MaxPooling3D(pool_size=(10,1,1), data_format='channels_last'))
+model.add(Conv3D(filters=30, kernel_size=(16,1,1), activation='relu', input_shape=(memory,2,2,1), data_format='channels_last'))
+model.add(Conv3D(filters=30, kernel_size=(4,1,1), activation='relu', data_format='channels_last'))
+model.add(MaxPooling3D(pool_size=(2,1,1), data_format='channels_last'))
 model.add(Flatten())
-model.add(Dense(128, activation='relu'))
 model.add(Dense(256, activation='relu'))
-model.add(Dense(4,  activation='linear'))
-
-
-   
+model.add(Dense(64, activation='relu'))
 model.add(Dense(4,  activation='linear'))
 
 model.compile(loss=keras.losses.mean_squared_error,
@@ -82,11 +77,11 @@ model.compile(loss=keras.losses.mean_squared_error,
 print(model.summary())
 
 result = model.fit(x_train, y_train,
-                       batch_size=batch_size,
-                       epochs=epoch,
-                       verbose=True,
-                       #callbacks=callbacks,
-                       validation_split=validation_size)
+                   batch_size=batch_size,
+                   epochs=epoch,
+                   verbose=True,
+                   #callbacks=callbacks,
+                   validation_split=validation_size)
 
 ##############################################################################
 # Plot statistics here
